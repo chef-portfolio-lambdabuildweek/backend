@@ -1,0 +1,39 @@
+{
+  "name": "ChefPortfolio-BE",
+  "version": "1.0.0",
+  "description": "Backend repo for the Chef Portfolio Build Week project",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "start": "node index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chef-portfolio-lambdabuildweek/ChefPortfolio-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chef-portfolio-lambdabuildweek/ChefPortfolio-BE/issues"
+  },
+  "homepage": "https://github.com/chef-portfolio-lambdabuildweek/ChefPortfolio-BE#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.5",
+    "sqlite3": "^4.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
