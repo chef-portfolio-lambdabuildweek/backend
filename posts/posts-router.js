@@ -3,21 +3,21 @@ const router = require("express").Router();
 const Posts = require("./posts-model.js");
 const restricted = require("../auth/restricted-middleware.js");
 
-router.get(`/post`, (req, res) => {
+router.get(`/`, (req, res) => {
   Posts.getPost()
-    .where({ public: 1 })
-    .then(user => {
-      res.status(200).json(user);
+    
+    .then(post => {
+      res.status(200).json(post);
     })
     .catch(err => {
       res.status(500).json({ message: "There was an error." });
     });
 });
 
-router.post("/post/create", (req, res) => {
-  let user = req.body;
+router.post("/create", (req, res) => {
+  let post = req.body;
 
-  Posts.add(user)
+  Posts.add(post)
     .then(info => {
       res.status(201).json({
         ...info
@@ -28,11 +28,11 @@ router.post("/post/create", (req, res) => {
     });
 });
 
-router.delete("/post/delete/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   let id = req.params.id;
 
   Posts.remove(id)
-    .then(users => {
+    .then(post => {
       res.status(204).end();
     })
     .catch(err => {
@@ -42,23 +42,23 @@ router.delete("/post/delete/:id", (req, res) => {
     });
 });
 
-router.get("/post/:username", (req, res) => {
+router.get("/:username", (req, res) => {
   let username = req.params.username;
 
   Posts.getByUsername(username)
-    .then(posts => {
-      res.status(201).send(posts);
+    .then(post => {
+      res.status(201).send(post);
     })
     .catch(err => {
       res.status(401).json({ error: "User does not exist." });
     });
 });
 
-router.put("/post/update/:id", (req, res) => {
+router.put("/update/:id", (req, res) => {
   const id = req.params.id;
-  const actionbod = req.body;
+  const action = req.body;
 
-  Posts.update(id, actionbod)
+  Posts.update(id, action)
     .then(updated => {
       res.status(200).json(updated);
     })
