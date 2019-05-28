@@ -14,7 +14,7 @@ router.get(`/`, (req, res) => {
     });
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", restricted, (req, res) => {
   let post = req.body;
 
   Posts.add(post)
@@ -28,7 +28,7 @@ router.post("/create", (req, res) => {
     });
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", restricted, (req, res) => {
   let id = req.params.id;
 
   Posts.remove(id)
@@ -42,7 +42,7 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 
-router.get("/:username", (req, res) => {
+router.get("/:username", restricted, (req, res) => {
   let username = req.params.username;
 
   Posts.getByUsername(username)
@@ -54,7 +54,7 @@ router.get("/:username", (req, res) => {
     });
 });
 
-router.put("/update/:id", (req, res) => {
+router.put("/update/:id", restricted, (req, res) => {
   const id = req.params.id;
   const action = req.body;
 
