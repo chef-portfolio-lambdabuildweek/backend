@@ -5,7 +5,6 @@ const secrets = require("../config/secrets");
 
 const Users = require("../users/users-model.js");
 
-
 router.post("/register", (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
@@ -13,17 +12,15 @@ router.post("/register", (req, res) => {
 
   Users.add(user)
     .then(saved => {
-      
       const token = generateToken(saved);
       console.log("token", saved);
-      res.status(201).json({message: `Welcome ${saved.username}!`, token});
+      res.status(201).json({ message: `Welcome ${saved.username}!`, token });
     })
     .catch(error => {
       console.log("random");
       res.status(500).json(error);
     });
 });
-
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
@@ -45,6 +42,20 @@ router.post("/login", (req, res) => {
     .catch(error => {
       res.status(500).json(error);
     });
+});
+
+router.get("/logout", (req, res) => {
+  if (token) {
+    token.destroy(err => {
+      if (err) {
+        res.status(500).json({ message: "Logout failed" });
+      } else {
+        res.status(200).json({ message: "Bye, thanks for visiting" });
+      }
+    });
+  } else {
+    res.status(200).json({ message: "Bye, thanks for visiting" });
+  }
 });
 
 function generateToken(user) {
